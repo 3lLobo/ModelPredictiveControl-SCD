@@ -124,13 +124,13 @@ int main() {
           double latency_y = 0;
           double latency_psi = -(v / Lf) * steering_angle * latency_dt;
           double latency_v = v + throttle * latency_dt;
-          double latency_cte = cte + v * sin(newpsi) * latency_dt;
+          double latency_cte = polyeval(fit,latency_x)-latency_y;
 
           double expected_psi = atan(fit[1] + 
                                 2.0 * fit[2] * latency_x + 
                                 3.0 * fit[3] * latency_x*latency_x);
 
-          double latency_epsi = psi - expected_psi;
+          double latency_epsi = 0.0 - expected_psi;
           
           Eigen::VectorXd state(6); 
           state << latency_x, latency_y, latency_psi, latency_v, latency_cte, latency_epsi;
